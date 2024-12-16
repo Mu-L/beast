@@ -311,7 +311,7 @@ struct impl_base<true>
     read_size_hint_pmd(
         std::size_t initial_size,
         bool rd_done,
-        std::uint64_t rd_msg_max,
+        std::size_t rd_msg_max,
         std::uint64_t rd_remain,
         frame_header const& rd_fh) const
     {
@@ -344,6 +344,12 @@ struct impl_base<true>
         if(rd_msg_max)
             result = clamp(result, rd_msg_max);
         return result;
+    }
+
+    void
+    get_config_pmd(detail::pmd_offer &pmd)
+    {
+        pmd = pmd_config_;
     }
 };
 
@@ -465,7 +471,7 @@ struct impl_base<false>
     read_size_hint_pmd(
         std::size_t initial_size,
         bool rd_done,
-        std::uint64_t rd_msg_max,
+        std::size_t rd_msg_max,
         std::uint64_t rd_remain,
         frame_header const& rd_fh) const
     {
@@ -494,6 +500,12 @@ struct impl_base<false>
         if(rd_msg_max)
             result = clamp(result, rd_msg_max);
         return result;
+    }
+
+    void
+    get_config_pmd(detail::pmd_offer &pmd)
+    {
+        pmd = {};
     }
 };
 
